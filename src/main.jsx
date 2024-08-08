@@ -12,6 +12,7 @@ import { store } from './store/Index';
 import AdminPanel from './pages/AdminPanel';
 import Users from './pages/Users';
 import Products from './pages/Products';
+import Dashboard from './pages/Dashboard';
 
  export const Routes = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ import Products from './pages/Products';
                 path: 'admin',
                 element: <AdminPanel />,
                 children: [
+                    {
+                        path: 'dashboard',
+                        element: <Dashboard />
+                    },
                     {
                         path:'users',
                         element: <Users />

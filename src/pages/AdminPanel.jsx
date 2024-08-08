@@ -1,6 +1,6 @@
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const AdminPanel = () => {
   const { user } = useSelector((state) => state.user);
@@ -21,34 +21,46 @@ const AdminPanel = () => {
             </>
           )}
           <p className="capitalize font-semibold mt-5 ">{user?.name}</p>
-          <p className="text-sm">{user?.role}</p>
+          <p className="text-xs bg-fuchsia-400 px-3 py-0 rounded-lg uppercase">{user?.role} User</p>
         </div>
         <nav className="mt-5 flex flex-col items-center justify-center">
-          <NavLink
-            to={"users"}
+        <NavLink
+            to={"dashboard"}
             className={({ isActive }) =>
-              "hover:text-fuchsia-700 hover:bg-slate-100 w-full py-2 px-4 " +
+              "w-full py-2 px-4 " +
               (isActive
                 ? "bg-fuchsia-700 hover:bg-fuchsia-700 text-white hover:text-white"
-                : "bg-white")
+                : "bg-white hover:text-fuchsia-700 hover:bg-slate-100")
             }
           >
-            Users
+            Dashboard
           </NavLink>
+
           <NavLink
             to={"products"}
             className={({ isActive }) =>
-              "hover:text-fuchsia-700 hover:bg-slate-100 w-full py-2 px-4 " +
+              "w-full py-2 px-4 " +
               (isActive
                 ? "bg-fuchsia-700 hover:bg-fuchsia-700 text-white hover:text-white"
-                : "bg-white")
+                : "bg-white hover:text-fuchsia-700 hover:bg-slate-100")
             }
           >
-            Products
+            All Products
+          </NavLink>
+          <NavLink
+            to={"users"}
+            className={({ isActive }) =>
+              "w-full py-2 px-4 " +
+              (isActive
+                ? "bg-fuchsia-700 hover:bg-fuchsia-700 text-white hover:text-white"
+                : "bg-white hover:text-fuchsia-700 hover:bg-slate-100")
+            }
+          >
+            All Users
           </NavLink>
         </nav>
       </aside>
-      <main className="p-4">
+      <main className="p-4 min-w-[calc(100%-210px)] mt-6">
         <Outlet />
       </main>
     </div>

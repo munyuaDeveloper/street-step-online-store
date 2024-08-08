@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <>
-      <header className=" shadow-md w-full px-6 py-4 flex items-center justify-between bg-white">
+      <header className=" shadow-md w-full px-2 md:px-6 py-4 flex items-center justify-between bg-white">
         <Link to={"/"} className="cursor-pointer">
           {/* <Logo w={150} h={50} /> */}
           <img src={logo} className="h-[50px]" alt="Logo"/>
@@ -40,7 +40,7 @@ const Header = () => {
             <FaSearch />
           </button>
         </div>
-        <div className="flex items-center justify-between gap-8 mr-5">
+        <div className="flex items-center justify-between gap-[20px] md:gap-8 md:mr-5">
           <div className="relative  flex justify-center">
             <div
               className="cursor-pointer"
@@ -60,7 +60,7 @@ const Header = () => {
               )}
             </div>
             {showProfileMenu && (
-              <div className="absolute bg-white shadow-lg top-14 bottom-0 h-fit z-40 rounded p-2">
+              <div className="absolute bg-white shadow-lg top-14 bottom-0 h-fit z-40 rounded p-2 hidden md:flex">
                 <nav className="flex flex-col">
                   <Link to={'/admin'} className="whitespace-nowrap hover:bg-slate-100 p-2" onClick={() => setShowProfileMenu((prev) => !prev)}>
                     Admin Panel
@@ -73,7 +73,7 @@ const Header = () => {
             )}
           </div>
 
-          <div className="cart text-fuchsia-700 text-2xl relative">
+          <div className="cart text-fuchsia-700 md:text-2xl relative">
             <FaCartPlus />
             <span className="text-xs absolute -top-3 -right-3 bg-fuchsia-700 text-white rounded-full px-1">
               4
@@ -91,7 +91,7 @@ const Header = () => {
           {user && (
             <button
               onClick={handleLogoutUser}
-              className="bg-fuchsia-700 text-white rounded-full px-6 py-2"
+              className="bg-fuchsia-700 text-white rounded-full text-sm p-2 py-1 md:px-6 md:py-2"
             >
               Logout
             </button>
