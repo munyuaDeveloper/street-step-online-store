@@ -1,15 +1,16 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
+import UploadProductImage from "./UploadProductImage";
+import { useState } from "react";
+import productCategories from "../helpers/productCategories"
 
 const AddProductModal = ({ onClose }) => {
+  const [productImages, setProductImages] = useState([]);
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
     const data = Object.fromEntries(fd.entries());
-    data["productImage"] = [
-      "https://5.imimg.com/data5/ANDROID/Default/2021/3/GF/TK/WJ/16516658/product-jpeg-500x500.jpg",
-      "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/5/x/2/6-air-full-black-06-06-cool-and-creative-air-full-black-original-imagmqwuvztmhpdk.jpeg?q=90&crop=false",
-    ];
+    data["productImage"] = productImages;
 
     await createProduct(data);
   };
@@ -66,13 +67,21 @@ const AddProductModal = ({ onClose }) => {
           </div>
           <div className="w-full grid gap-1">
             <label>Category</label>
-            <input
+            <select
               className="outline-none border p-2 rounded bg-fuchsia-50"
               type="text"
               name="category"
               placeholder="Enter category"
               required
-            />
+            >
+              <option>Select Category</option>
+              {
+                productCategories.map(cat => 
+                  <option key={cat.id} value={cat.value}>{cat.label}</option>
+                )
+              }
+
+            </select>
           </div>
           <div className="w-full grid gap-1">
             <label>Price</label>
@@ -104,6 +113,8 @@ const AddProductModal = ({ onClose }) => {
               required
             />
           </div>
+
+         <UploadProductImage setProductImgUrls={(images)=>setProductImages(images)} />
 
           <button
             type="submit"

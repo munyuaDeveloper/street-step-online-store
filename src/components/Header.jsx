@@ -62,7 +62,7 @@ const Header = () => {
             {showProfileMenu && (
               <div className="absolute bg-white shadow-lg top-14 bottom-0 h-fit z-40 rounded p-2 hidden md:flex">
                 <nav className="flex flex-col">
-                  <Link to={'/admin'} className="whitespace-nowrap hover:bg-slate-100 p-2" onClick={() => setShowProfileMenu((prev) => !prev)}>
+                  <Link to={'/admin/dashboard'} className="whitespace-nowrap hover:bg-slate-100 p-2" onClick={() => setShowProfileMenu((prev) => !prev)}>
                     Admin Panel
                   </Link>
                   <Link className="whitespace-nowrap hover:bg-slate-100 p-2" onClick={() => setShowProfileMenu((prev) => !prev)}>
