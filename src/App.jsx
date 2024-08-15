@@ -24,7 +24,7 @@ function App() {
     <>
       <ToastContainer />
       <Header />
-      <main className="min-h-[calc(100vh-120px)] ">
+      <main className="min-h-[calc(100vh-120px)] mt-24">
         <Outlet />
       </main>
       <Footer />

@@ -1,3 +1,6 @@
 .custom-shadow{
     box-shadow: 0 -19px 19px 2px rgba(0, 0, 0, 0.1);
 }
+.scrollbar-none::-webkit-scrollbar{
+    display: none;
+}

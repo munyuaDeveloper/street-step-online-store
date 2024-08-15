@@ -63,10 +63,10 @@ const Products = () => {
               className="border-b hover:bg-fuchsia-50 cursor-pointer"
             >
                <td className="p-2">{index + 1}</td>
-               <td className="p-2">
-                <img src={product?.productImage[0]} alt="product image" className="w-[50px] rounded-sm"/>
+               <td className="p-2 max-w-[60px]" >
+                <img src={product?.productImage[0]} alt="product image" className="h-[50px] w-[50px] object-contain rounded-sm"/>
                </td>
-              <td className="p-2">{product.productName}</td>
+              <td className="p-2 max-w-56 text-ellipsis line-clamp-3">{product.productName}</td>
               <td className="p-2">{product?.brandName}</td>
               <td className="p-2 capitalize">{product?.category}</td>
               <td className="p-2 capitalize">{product?.price}</td>

@@ -1,13 +1,50 @@
-import CategoryImg from "../assest/products/airpodes/boAt Airdopes 111 4.webp";
+import { useEffect, useState } from "react";
+
 const ProductCategories = () => {
+  const [productCategories, setProductCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const dummyCategories = new Array(13).fill(null)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      await fetch("/api/get-category-product")
+        .then((res) => res.json())
+        .then((res) => {
+          setLoading(false)
+          setProductCategories(res.data);
+        })
+        .catch(() => {
+          setLoading(false)
+        })
+    };
+
+    fetchCategories();
+  }, []);
   return (
-    <div className="container mx-auto px-4 flex justify-center gap-6 my-5">
-      {[1, 2, 3, 4, 5, 6, 7, 8,9,10,11,12].map((i) => (
-        <div
-          key={i}
-          className="bg-slate-200 w-[100px] h-[100px] rounded-full flex items-center justify-center cursor-pointer"
-        >
-          <img src={CategoryImg} className="object-contain w-[80px] h-[80px] rounded-full" />
+    <div className="container mx-auto px-4 flex items-center justify-between gap-3 md:gap-6 my-5 w-full overflow-x-auto scrollbar-none">
+      {
+        loading && dummyCategories.map((product, index) => (
+          <div key={index}>
+            <div
+              className="bg-slate-200 w-16 h-16 md:w-20 md:h-20 p-4 rounded-full flex items-center justify-center overflow-hidden animate-pulse"
+            >
+            </div>
+          </div>
+        ))
+      }
+      
+      {!loading && productCategories.map((product) => (
+        <div key={product._id}>
+          <div
+            className="bg-slate-200 w-16 h-16 md:w-20 md:h-20 p-4 overflow-hidden rounded-full flex items-center justify-center cursor-pointer"
+          >
+            <img
+              src={product?.productImage[0]}
+              className="h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all"
+            />
+          </div>
+          <p className="text-center capitalize">{product?.category}</p>
         </div>
       ))}
     </div>

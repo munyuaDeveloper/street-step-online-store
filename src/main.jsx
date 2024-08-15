@@ -13,6 +13,7 @@ import AdminPanel from './pages/AdminPanel';
 import Users from './pages/Users';
 import Products from './pages/Products';
 import Dashboard from './pages/Dashboard';
+import ProductDetails from './pages/ProductDetails';
 
  export const Routes = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ import Dashboard from './pages/Dashboard';
             {
                 path: 'signup',
                 element: <SignUp/>
+            },
+            {
+                path: 'product/:id',
+                element: <ProductDetails />
             },
             {
                 path: 'admin',

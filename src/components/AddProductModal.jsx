@@ -1,11 +1,12 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
 import UploadProductImage from "./UploadProductImage";
-import { useState } from "react";
-import productCategories from "../helpers/productCategories"
+import { useRef, useState } from "react";
+import productCategories from "../helpers/productCategories";
 
 const AddProductModal = ({ onClose }) => {
   const [productImages, setProductImages] = useState([]);
+  const formRef = useRef();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
@@ -27,11 +28,17 @@ const AddProductModal = ({ onClose }) => {
       .then((res) => res.json())
       .then((res) => {
         toast.success(res.message);
-        onClose();
+        // onClose();
+        reset();
       })
       .catch((error) => {
         toast.error(error.message);
       });
+  };
+
+  const reset = () => {
+    setProductImages([]);
+    formRef.current.reset();
   };
 
   return (
@@ -44,7 +51,11 @@ const AddProductModal = ({ onClose }) => {
           Add Product
         </h1>
 
-        <form className="mt-6 grid gap-3" onSubmit={handleFormSubmit}>
+        <form
+          className="mt-6 grid gap-3"
+          onSubmit={handleFormSubmit}
+          ref={formRef}
+        >
           <div className="w-full grid gap-1">
             <label>Product Name</label>
             <input
@@ -75,12 +86,11 @@ const AddProductModal = ({ onClose }) => {
               required
             >
               <option>Select Category</option>
-              {
-                productCategories.map(cat => 
-                  <option key={cat.id} value={cat.value}>{cat.label}</option>
-                )
-              }
-
+              {productCategories.map((cat) => (
+                <option key={cat.id} value={cat.value}>
+                  {cat.label}
+                </option>
+              ))}
             </select>
           </div>
           <div className="w-full grid gap-1">
@@ -114,7 +124,9 @@ const AddProductModal = ({ onClose }) => {
             />
           </div>
 
-         <UploadProductImage setProductImgUrls={(images)=>setProductImages(images)} />
+          <UploadProductImage
+            setProductImgUrls={(images) => setProductImages(images)}
+          />
 
           <button
             type="submit"

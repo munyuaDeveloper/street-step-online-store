@@ -7,16 +7,25 @@ const UploadProductImage = ({ setProductImgUrls }) => {
   const [productImages, setProductImages] = useState([]);
 
   const handleImageChange = async (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files;
 
-    const cloudinaryResponse = await uploadImage(file);
+
+    const uploadMultipleFiles = async () => {
+      for (let i = 0; i < file.length; i++) {
+        const cloudinaryResponse = await uploadImage(file[i]);
+        setProductImages((prev) => {
+          console.log('fileUrl', cloudinaryResponse.url)
     
+          const updatedImgs = [...prev, cloudinaryResponse.url];
+          setProductImgUrls(updatedImgs);
+          return updatedImgs;
+        });
+      }
+    };
 
-    setProductImages((prev) => {
-      const updatedImgs = [...prev, cloudinaryResponse.url];
-      setProductImgUrls(updatedImgs);
-      return updatedImgs;
-    });
+    uploadMultipleFiles()
+
+    
   };
 
   const handleDeleteImg = (index) => {
@@ -42,6 +51,7 @@ const UploadProductImage = ({ setProductImgUrls }) => {
           id="uploadProductImage"
           className="hidden"
           accept="image/*"
+          multiple
           onChange={handleImageChange}
         />
       </div>

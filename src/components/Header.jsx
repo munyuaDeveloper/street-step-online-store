@@ -4,11 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../store/UserSlice";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import logo from "../assest/logo.png"
+import logo from "../assest/logo.png";
+import Cart from "./Cart";
 const Header = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [openCart, setOpenCart] = useState(false);
+
+  const { count } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
 
@@ -24,11 +28,11 @@ const Header = () => {
   };
 
   return (
-    <>
-      <header className=" shadow-md w-full px-2 md:px-6 py-4 flex items-center justify-between bg-white">
+    <div className="fixed w-full z-40 top-0">
+      <header className="shadow-md w-full px-2 md:px-6 py-4 flex items-center justify-between bg-white">
         <Link to={"/"} className="cursor-pointer">
           {/* <Logo w={150} h={50} /> */}
-          <img src={logo} className="h-[50px]" alt="Logo"/>
+          <img src={logo} className="h-[50px]" alt="Logo" />
         </Link>
         <div className="hidden md:flex items-center justify-between">
           <input
@@ -62,10 +66,17 @@ const Header = () => {
             {showProfileMenu && (
               <div className="absolute bg-white shadow-lg top-14 bottom-0 h-fit z-40 rounded p-2 hidden md:flex">
                 <nav className="flex flex-col">
-                  <Link to={'/admin/dashboard'} className="whitespace-nowrap hover:bg-slate-100 p-2" onClick={() => setShowProfileMenu((prev) => !prev)}>
+                  <Link
+                    to={"/admin/dashboard"}
+                    className="whitespace-nowrap hover:bg-slate-100 p-2"
+                    onClick={() => setShowProfileMenu((prev) => !prev)}
+                  >
                     Admin Panel
                   </Link>
-                  <Link className="whitespace-nowrap hover:bg-slate-100 p-2" onClick={() => setShowProfileMenu((prev) => !prev)}>
+                  <Link
+                    className="whitespace-nowrap hover:bg-slate-100 p-2"
+                    onClick={() => setShowProfileMenu((prev) => !prev)}
+                  >
                     My Account
                   </Link>
                 </nav>
@@ -74,10 +85,18 @@ const Header = () => {
           </div>
 
           <div className="cart text-fuchsia-700 md:text-2xl relative">
-            <FaCartPlus />
-            <span className="text-xs absolute -top-3 -right-3 bg-fuchsia-700 text-white rounded-full px-1">
-              4
-            </span>
+            <div className="cursor-pointer" onClick={()=>setOpenCart(prev => !prev)}>
+              <FaCartPlus />
+              <span className="text-xs absolute -top-3 -right-3 bg-fuchsia-700 text-white rounded-full px-1">
+                {count}
+              </span>
+            </div>
+
+            {openCart && (
+              <div className="absolute top-[54px] -left-[275px] sm:-left-[320px]">
+                <Cart />
+              </div>
+            )}
           </div>
           {!user && (
             <Link
@@ -98,7 +117,7 @@ const Header = () => {
           )}
         </div>
       </header>
-    </>
+    </div>
   );
 };
 
