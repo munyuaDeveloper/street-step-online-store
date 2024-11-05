@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2016",  
+    "module": "esnext", // Change this to es2020, es2022, or esnext
+    "jsx": "react-jsx", // Use "react" if you are using React < 17
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+  "exclude": ["node_modules", "dist"]
+}
